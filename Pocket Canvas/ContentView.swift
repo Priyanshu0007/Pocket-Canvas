@@ -15,20 +15,31 @@ struct ContentView: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing){
             DrawingCanvasView(clearTrigger: $clearTrigger, drawing: $currentDrawing).ignoresSafeArea([.all])
-            Button(action: {clearTrigger = true}) {
-                Image(systemName: "bin.xmark.fill")
-                    .font(.headline)
-                    .foregroundStyle(.black)
-                Text("Clear")
-                    .font(.headline)
-                    .foregroundStyle(.black)
-                    
+            HStack{
+                    Button(action: {clearTrigger = true}) {
+                        Image(systemName: "bin.xmark.fill")
+                            .font(.headline)
+                            .foregroundStyle(.black)
+                        Text("Clear")
+                            .font(.headline)
+                            .foregroundStyle(.black)
+                            
+                    }
+                    .padding()
+                    .background(Color.red)
+                    .border(Color.black,width: 4)
+                    .padding()
+                
+                    NavigationLink(destination: PreviewView(drawing: currentDrawing)
+                    ){
+                        Text("Preview")
+                            .font(.headline)
+                            .foregroundStyle(.black)
+                            .padding()
+                            .background(Color.green)
+                            .border(Color.black,width: 4)
+                    }
             }
-            .padding()
-            .background(Color.red)
-            .border(Color.black,width: 4)
-            .padding()
-
         }
     }
 }
