@@ -11,10 +11,27 @@ import PencilKit
 
 struct DrawingCanvasView: UIViewRepresentable {
     @Binding var clearTrigger: Bool
+    @Binding var drawing: PKDrawing
+    
+    class Cordinator: NSObject, PKCanvasViewDelegate{
+        var parent: DrawingCanvasView
+        init(_ parent: DrawingCanvasView) {
+            self.parent = parent
+        }
+        func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+            parent.drawing = canvasView.drawing
+        }
+    }
+    
+    func makeCoordinator() -> Cordinator {
+        Cordinator(self)
+    }
     
     func makeUIView(context: Context) -> PKCanvasView {
         let canvasView = PKCanvasView()
         canvasView.drawingPolicy = .anyInput
+        
+        canvasView.delegate = context.coordinator
         
         let toolPicker = PKToolPicker()
         toolPicker.setVisible(true, forFirstResponder: canvasView)

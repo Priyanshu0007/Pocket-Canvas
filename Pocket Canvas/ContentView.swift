@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
+import PencilKit
 
 struct ContentView: View {
     @State private var clearTrigger: Bool = false
+    @State private var currentDrawing = PKDrawing()
     
     var body: some View {
         ZStack(alignment: .bottomTrailing){
-            DrawingCanvasView(clearTrigger: $clearTrigger).ignoresSafeArea([.all])
+            DrawingCanvasView(clearTrigger: $clearTrigger, drawing: $currentDrawing).ignoresSafeArea([.all])
             Button(action: {clearTrigger = true}) {
                 Image(systemName: "bin.xmark.fill")
                     .font(.headline)
