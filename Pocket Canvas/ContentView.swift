@@ -8,8 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var clearTrigger: Bool = false
+    
     var body: some View {
-        DrawingCanvasView().ignoresSafeArea([.all])
+        ZStack(alignment: .bottomTrailing){
+            DrawingCanvasView(clearTrigger: $clearTrigger).ignoresSafeArea([.all])
+            Button(action: {clearTrigger = true}) {
+                Image(systemName: "bin.xmark.fill")
+                    .font(.headline)
+                    .foregroundStyle(.black)
+                Text("Clear")
+                    .font(.headline)
+                    .foregroundStyle(.black)
+                    
+            }
+            .padding()
+            .background(Color.red)
+            .border(Color.black,width: 4)
+            .padding()
+
+        }
     }
 }
 

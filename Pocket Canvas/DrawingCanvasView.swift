@@ -10,6 +10,8 @@ import SwiftUI
 import PencilKit
 
 struct DrawingCanvasView: UIViewRepresentable {
+    @Binding var clearTrigger: Bool
+    
     func makeUIView(context: Context) -> PKCanvasView {
         let canvasView = PKCanvasView()
         canvasView.drawingPolicy = .anyInput
@@ -23,6 +25,11 @@ struct DrawingCanvasView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: PKCanvasView, context: Context) {
-        // uiView is now explicitly recognized as a PKCanvasView
+        if clearTrigger {
+            uiView.drawing = PKDrawing()
+            DispatchQueue.main.async {
+                clearTrigger = false
+            }
+        }
     }
 }
