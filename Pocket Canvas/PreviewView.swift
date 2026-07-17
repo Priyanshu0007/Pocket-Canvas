@@ -10,12 +10,32 @@ import PencilKit
 
 struct PreviewView: View {
     let drawing: PKDrawing
+    
+    var uiImage: UIImage {
+        drawing.image(from: drawing.bounds, scale: 1.0)
+    }
+    var imageToShare: Image {
+        Image(uiImage: uiImage)
+    }
+    
     var body: some View {
-        Image(uiImage: drawing.image(from: drawing.bounds, scale: 1.0))
-            .resizable()
-            .scaledToFit()
-            .padding()
-            .navigationTitle("Your ArtWork")
+        VStack{
+            Image(uiImage: uiImage)
+                .resizable()
+                .scaledToFit()
+                .padding()
+                .navigationTitle("Your ArtWork")
+            ShareLink(item: imageToShare, preview: SharePreview("MY ArtWork", image: imageToShare)){
+                Text("Share Sketch")
+                    .font(.title3)
+                    .bold()
+                    .foregroundStyle(.black)
+                    .padding()
+                    .background(Color.cyan)
+                    .border(Color.black, width:4)
+            }
+            
+        }
     }
 }
 
