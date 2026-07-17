@@ -33,6 +33,7 @@ struct PreviewView: View {
                     .padding()
                     .background(Color.cyan)
                     .border(Color.black, width:4)
+                    .padding()
             }
             
         }

@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var currentDrawing = PKDrawing()
     
     var body: some View {
-        ZStack(alignment: .bottomTrailing){
+        ZStack(alignment: .bottom){
             DrawingCanvasView(clearTrigger: $clearTrigger, drawing: $currentDrawing).ignoresSafeArea([.all])
             HStack{
                     Button(action: {clearTrigger = true}) {
@@ -38,6 +38,7 @@ struct ContentView: View {
                             .padding()
                             .background(Color.green)
                             .border(Color.black,width: 4)
+                            .padding()
                     }
             }
         }
